@@ -1,14 +1,23 @@
 package main
 
 import (
-	"fmt"
+	"embed"
 	"html/template"
+	"log"
 	"net/http"
 )
 
+var (
+	//go:embed templates/*
+	templates embed.FS
+	//go:embed static/*
+	static embed.FS
+)
+
 func main() {
-	fmt.Println("Hello, World!")
-	http.ListenAndServe(":8080", Router())
+	http.HandleFunc("/", HomeHandler)
+	http.Handle("/static/", http.FileServerFS(static))
+	log.Fatal(http.ListenAndServe(":8080", Router()))
 }
 
 func Router() *http.ServeMux {
@@ -18,29 +27,18 @@ func Router() *http.ServeMux {
 }
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html")
-	w.WriteHeader(http.StatusOK)
-	indexTmpl, err := template.New("index").Parse(indexHTML)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+	switch r.Method {
+	case "GET":
+		w.Header().Set("Content-Type", "text/html")
+		tmpl, err := template.ParseFS(templates, "templates/index.html")
+		if err != nil {
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
+		err = tmpl.Execute(w, nil)
+		if err != nil {
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
 	}
-	err = indexTmpl.Execute(w, nil)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
 }
-
-const indexHTML = `
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Home</title>
-</head>
-<body>
-	<h1>Welcome to Tishet</h1>
-</body>
-</html>
-`

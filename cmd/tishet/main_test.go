@@ -38,7 +38,7 @@ func TestHomeHandler(t *testing.T) {
 		HomeHandler(response, request)
 		body := response.Body.String()
 		//test if the body is a valid html document without checking the content
-		if !strings.Contains(body, "<html>") || !strings.Contains(body, "</html>") {
+		if !strings.Contains(body, "<html lang=\"en\"") || !strings.Contains(body, "</html>") {
 			t.Errorf("Expected Body to be a valid html document")
 		}
 		//contains a title
@@ -47,4 +47,3 @@ func TestHomeHandler(t *testing.T) {
 		}
 	})
 }
-
