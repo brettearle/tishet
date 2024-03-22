@@ -1,9 +1,9 @@
 
 build:
-	go build -o bin/main main.go
+	go build -o bin/main cmd/tishet/main.go
 
 run:
-	go run cmd/main.go
+	go run cmd/tishet/main.go
 
 test:
 	go test -v ./...
