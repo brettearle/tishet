@@ -2,27 +2,26 @@ package main
 
 import (
 	"embed"
-	"html/template"
 	"log"
 	"net/http"
+
+	view "github.com/brettearle/tishet/cmd/tishet/views"
 )
 
 var (
-	//go:embed templates/*
-	templates embed.FS
-	//go:embed static/*
-	static embed.FS
+	//go:embed assets/*
+	assets embed.FS
 )
 
 func main() {
-	http.HandleFunc("/", HomeHandler)
-	http.Handle("/static/", http.FileServerFS(static))
+	http.Handle("/assets/", http.FileServerFS(assets))
 	log.Fatal(http.ListenAndServe(":8080", Router()))
 }
 
 func Router() *http.ServeMux {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", HomeHandler)
+	mux.HandleFunc("/dashboard", DashBoardHandler)
 	return mux
 }
 
@@ -30,15 +29,16 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
 		w.Header().Set("Content-Type", "text/html")
-		tmpl, err := template.ParseFS(templates, "templates/index.html")
-		if err != nil {
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-			return
-		}
-		err = tmpl.Execute(w, nil)
-		if err != nil {
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-			return
-		}
+		view := view.HomeView()
+		view.Render(r.Context(), w)
+	}
+}
+
+func DashBoardHandler(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET":
+		w.Header().Set("Content-Type", "text/html")
+		view := view.DashboardView()
+		view.Render(r.Context(), w)
 	}
 }
