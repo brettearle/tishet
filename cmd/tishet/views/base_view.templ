@@ -3,16 +3,22 @@ package view
 templ Base() {
 	@baseLayout() {
 		<header>
-			<h1>Tishet</h1>
-			<nav>
-				<a href="/">Home</a>
-				<a href="/dashboard">Dashboard</a>
+			<nav class="container-fluid">
+				<ul>
+					<li>
+						<h1>Tishet</h1>
+					</li>
+				</ul>
+				<ul>
+					<li><a href="/">Home</a></li>
+					<li><a href="/dashboard">Dashboard</a></li>
+				</ul>
 			</nav>
 		</header>
-		<main class="container">
+		<main class="container" hx-get="/dashboard">
 			{ children... }
 		</main>
-		<footer>
+		<footer class="container">
 			<a href="https://github.com/brettearle/tishet">Github</a>
 			<p>2024 Tishet</p>
 		</footer>
@@ -24,10 +30,12 @@ templ baseLayout() {
 	<html lang="en">
 		<head>
 			<meta charset="UTF-8"/>
-			<meta name="color-scheme" content="light dark"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-			<link rel="stylesheet" href="/assets/pico.jade.min.css"/>
-			<script type="JavaScript" src="/assets/htmx.min.js"></script>
+			<link
+				rel="stylesheet"
+				href="/assets/pico.jade.min.css"
+			/>
+			<script src="/assets/htmx.min.js"></script>
 			<title>Tishet</title>
 		</head>
 		<body>

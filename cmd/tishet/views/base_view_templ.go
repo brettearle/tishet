@@ -29,7 +29,7 @@ func Base() templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<header><h1>Tishet</h1><nav><a href=\"/\">Home</a> <a href=\"/dashboard\">Dashboard</a></nav></header><main class=\"container\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<header><nav class=\"container-fluid\"><ul><li><h1>Tishet</h1></li></ul><ul><li><a href=\"/\">Home</a></li><li><a href=\"/dashboard\">Dashboard</a></li></ul></nav></header><main class=\"container\" hx-get=\"/dashboard\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -37,7 +37,7 @@ func Base() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</main><footer><a href=\"https://github.com/brettearle/tishet\">Github</a><p>2024 Tishet</p></footer>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</main><footer class=\"container\"><a href=\"https://github.com/brettearle/tishet\">Github</a><p>2024 Tishet</p></footer>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -70,7 +70,7 @@ func baseLayout() templ.Component {
 			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"color-scheme\" content=\"light dark\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><link rel=\"stylesheet\" href=\"/assets/pico.jade.min.css\"><script type=\"JavaScript\" src=\"/assets/htmx.min.js\"></script><title>Tishet</title></head><body>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><link rel=\"stylesheet\" href=\"/assets/pico.jade.min.css\"><script src=\"/assets/htmx.min.js\"></script><title>Tishet</title></head><body>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -29,7 +29,7 @@ func HomeView() templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"container\"><h1>Home</h1><p>Welcome to the home page</p></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"container\"><div><hgroup><h1 hx-get=\"/dashboard\" hx-trigger=\"click\" hx-swap=\"innerHTML\">Home</h1><h2>Welcome to the home page</h2></hgroup></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
